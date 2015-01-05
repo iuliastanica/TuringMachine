@@ -95,3 +95,33 @@ carry  _,0,_  _,0,1  -,<,< add
 carry  _,1,_  _,1,0  -,<,< carry
 carry  _,_,_  _,_,1  -,-,- halt""")
 plist.append(program)
+
+"""
+Multiplication
+This program uses 3 tapes: 2 for the input values (as binary numbers),
+and the last one for the result (this one should be empty when running the program).
+The program moves to the right start of each value, and then multiplies each digit.
+"""
+program = TuringProgram("Multiplication")
+program.set_tapes(list("011010"), list("011100"), [])
+program.state_initial = 'move'
+program.set_actions("""\
+move   0,0,_  0,0,_  >,>,> move
+move   0,1,_  0,1,_  >,>,> move
+move   0,_,_  0,_,_  >,-,> move
+move   1,0,_  1,0,_  >,>,> move
+move   1,1,_  1,1,_  >,>,> move
+move   1,_,_  1,_,_  >,-,> move
+move   _,0,_  _,0,_  -,>,> move
+move   _,1,_  _,1,_  -,>,> move
+move   _,_,_  _,_,_  <,<,< mul
+mul    0,0,_  0,0,0  <,<,< mul
+mul    0,1,_  0,1,0  <,<,< mul
+mul    0,_,_  0,_,0  <,-,< mul
+mul    1,0,_  1,0,0  <,<,< mul
+mul    1,1,_  1,1,1  <,<,< mul
+mul    1,_,_  1,_,1  <,-,< mul
+mul    _,0,_  _,0,0  -,<,< mul
+mul    _,1,_  _,1,1  -,<,< mul
+mul    _,_,_  _,_,_  -,-,- halt""")
+plist.append(program)
